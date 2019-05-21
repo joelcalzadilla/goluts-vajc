@@ -1,0 +1,119 @@
+<div class="modal-dialog" style="width: 99%; max-width: 700px;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Ventas familias</h4>
+        </div>
+        
+        <div class="modal-body" >    
+                   
+               <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="extractos">
+                    <div class="container-fluid">     
+                     <div class="row">
+                        <ul style="padding-left: 0;">
+                           
+                            {loop="$fsc->familiasParaExtracto()"}                        
+                            <li style="display: inline-block; padding-left: 20px;">
+                                <label style="font-size: 16px;">
+                                    <input type='checkbox' name='checkboxVentas' value='{$value["codigo"]}' style="width: 18px;height: 18px;">
+                                    &nbsp;{$value["descripcion"]}
+                                </label>
+                            </li>
+                         
+                        {/loop}
+                       </ul>             
+                    </div>
+            
+                    <div class="row" style="align-content: center">
+                        <div class="col-sm-4 ">
+                     <!-- modificada por JC 20.05.2019 se cambia id=datepicker_from x id=datepicker_fecha y label Desde x Fecha-->
+                            <p>Fecha: <input type="text" id="datepicker_fecha" value="{$fsc->today()}"></p>
+                        </div>        
+
+                        <!-- JC 20.05.2019 boton para mostrar ventas de las familias seleccionadas   BEGIN-->
+                        <div class="col-sm-8">
+                                <input type="button" id="btn-mostrar-ventas-familias" value="Mostrar" class="btn btn-sm btn-info" >                  
+                        </div>
+                        <!-- JC 20.05.2019 boton para mostrar ventas de las familias seleccionadas   END-->
+
+                        <!-- JC 20.05.2019  se comenta todo este código pues se debe eliminar, pues no es necesario 2 inputs de fecha
+                            <div class="col-sm-4 ">
+                                <p>Hasta: <input type="text" id="datepicker_to" value="{$fsc->today()}"></p>
+                            </div> -->
+                    </div>
+                    <hr/>
+  
+              </div>
+                    </div>
+                </div>
+        </div>
+                <div id="respuesta">
+                    respuesta 
+                </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-sm-4 text-left">
+                    <a href="{$fsc->url()}&imprimir_ventas_familia" id="btn-imprimir-ventas-familias" class="btn btn-sm btn-info" type="button">
+                        <span class="glyphicon glyphicon-print"></span>&nbsp; Imprimir
+                    </a>
+                </div>
+                <div class="col-sm-8">
+                    <a href="#" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                        Cerrar&nbsp; <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <script>
+
+  jQuery( function() {
+      // JC 20.05.2019 se modifica la etiquta datepicker_from x datepicker_fecha
+    jQuery( "#datepicker_fecha" ).datepicker();
+  } );
+
+  /*   JC 20.05.2019             se comenta todo este código pues se debe eliminar, pues no es necesario el datepicker_to
+  jQuery( function() {
+    jQuery( "#datepicker_to" ).datepicker();
+  } );
+*/
+
+
+  //   BEGIN      JC 20.05.2019     este codigo JS crear el arreglo de las familias seleccionadas por el usuario y llama al PHP que hará la consulta a BD    
+
+  $("#btn-mostrar-ventas-familias").click(function(){
+			//Creamos una variable de tipo Array
+			var datos = []
+			//Obtenemos todos los valores de los check seleccionados
+			var seleccionFamilias = document.querySelectorAll('input[name=checkboxVentas]:checked')
+			//Reccorremos los check seleccionados
+			for (var i = 0; i < seleccionFamilias.length; i++) {
+				//Guardamos los valores en la variable de tipo Array datos[]
+               // console.log("2 function "+seleccionFamilias[i].value)  JC 20.05.2019  eliminar
+
+				datos.push(seleccionFamilias[i].value)
+			}
+			$.ajax({
+			  type: "POST",
+		  	  url: "muestraVentasFamilias.php",
+			  data: {
+				  familias : datos,
+                  fecha    : document.getElementById("datepicker_fecha").value
+			  },
+			  success: function( result ) {
+			    $( "#respuesta" ).html( "<strong>" +"succes "+ result + "</strong>" );				  
+			  },
+              error: function( result) {
+                $( "#respuesta" ).html( "<strong>" +" error "+ result + "</strong>" ); 
+              }
+			});
+		});
+  //    END     JC 20.05.2019     este codigo JS crear el arreglo de las familias seleccionadas por el usuario y llama al PHP que hará la consulta a BD    
+
+
+
+  </script>

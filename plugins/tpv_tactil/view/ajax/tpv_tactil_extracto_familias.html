@@ -1,0 +1,75 @@
+<div class="modal-dialog" style="width: 99%; max-width: 700px;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Extracto familias</h4>
+        </div>
+        <div class="modal-body">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="extractos">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <p><b>Fecha:</b></p>
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="extracto-familias-fecha" class="form-control datepicker" type="text" name="fecha" value="{$fsc->resultado['fecha']}"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p><b>Nombre</b></p>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <p><b>Precio</b></p>
+                            </div>
+                        </div>
+                        {loop="$fsc->familiasParaExtracto()"}
+                        {if="$value['ventas']"}
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p>{$value["descripcion"]}</p>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <p>{$value["vendido_format"]} €</p>
+                            </div>
+                        </div>
+                        {/if}
+                        {/loop}
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <p><b>TOTAL</b></p>
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <p>{$fsc->totalVendidoHoyFormat()} €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-sm-4 text-left">
+                    <a href="{$fsc->url()}&imprimir_extracto&fecha={$fsc->resultado['fecha']}" id="btn-imprimir-extracto" class="btn btn-sm btn-info" type="button">
+                        <span class="glyphicon glyphicon-print"></span>&nbsp; Imprimir
+                    </a>
+                </div>
+                <div class="col-sm-8">
+                    <a href="#" class="btn btn-sm btn-danger" data-dismiss="modal" aria-label="Close">
+                        Cerrar&nbsp; <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#extracto-familias-fecha').datepicker().change(function () {
+        extractos_modal($(this).val());
+    });
+</script>

@@ -1,0 +1,317 @@
+<div class="modal-dialog modal-dialog-with-sidebar" style="width: 99%; max-width: 700px;">
+    <div class="modal-content">
+
+        <section class="articulo_body">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Modificar artículo</h4>
+        </div>
+
+        <div class="modal-body">           
+                <div class="container-fluid">                       
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group input-group-100">
+                                    <span>Código de barras:</span>
+                                    <input type="text" name="codbarras" value="{$fsc->articulo->codbarras}" id="codbarras" class="form-control element-focusable" onkeypress="return event.keyCode != 13;" {if="$fsc->articulo->referencia != ''"}readonly{/if}>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group" style="width: 100%;">
+                                    <span>Descripcion:</span>
+                                    <input type="text" name="descripcion" value="{$fsc->articulo->descripcion}" id="descripcion" class="form-control element-focusable"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="input-group input-group-100">
+                                     <span>Referencia:</span>
+                                    <input type="text" name="nreferencia" value="{$fsc->referencia}" id="nreferencia" class="form-control element-focusable" readonly/>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                     <span>Código distribuidora:</span>
+                                    <input type="text" name="distribuidora" value="{$fsc->articulo->distribuidora}" id="distribuidora" class="form-control element-focusable"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                     <span>Campo código Agest:</span>
+                                     <input type="text" name="fcodigo" value="{$fsc->articulo->fcodigo}" id="fcodigo" class="form-control element-focusable" autocomplete="off" readonly/>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="input-group input-group-100">
+                                    <span>Reservas:</span>
+                                    <input type="text" name="reservas" value="{$fsc->articulo->reservas}" id="reservas" class="form-control element-focusable"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="input-group" style="width: 100%;">
+                                        <span>Familia:</span>
+                                        <select name="familia" id="familia" class="form-control element-focusable">
+                                            {loop="$fsc->listafamilias"}
+                                                {if="$value->codfamilia == '000'"}
+                                                    {if="$fsc->articulo->codfamilia == ''"}
+                                                    <option value="000" selected disabled>Seleccionar</option>
+                                                    {/if}
+                                                {else}
+                                                    {if="$value->codfamilia == $fsc->articulo->codfamilia"}
+                                                    <option value="{$value->codfamilia}" selected="selected">{$value->codfamilia} - {$value->descripcion}</option>
+                                                    {else}
+                                                    <option value="{$value->codfamilia}">{$value->codfamilia} - {$value->descripcion}</option>
+                                                    {/if}
+                                                {/if}
+                                            {/loop}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="input-group">
+                                        <span>PVP con IVA:</span>
+                                        <input type="text" name="pvp_iva" value="{$fsc->articulo->pvp_iva_format()}" id="pvp_iva" class="form-control element-focusable" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <div class="input-group">
+                                        <span>Tipo IVA:</span>
+                                        <select name="impuesto" id="impuesto" class="form-control element-focusable">
+                                            {loop="$fsc->listaimpuestos"}
+                                            {if="$value->codimpuesto == $fsc->articulo->codimpuesto"}
+                                            <option value="{$value->codimpuesto}" selected="selected">{$value->descripcion}</option>
+                                            {else}
+                                            <option value="{$value->codimpuesto}">{$value->descripcion}</option>
+                                            {/if}
+                                            {/loop}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="input-group" style="width: 100%;">
+                                        <span>Stock actual:</span>
+                                        <input type="text" name="stock_actual" value="{$fsc->stock->cantidad}" id="stock_actual" class="form-control" readonly="readonly" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span>Fecha de última recepción:</span>
+                                    <input type="text" name="fecha_recepcion" value="{$fsc->articulo->fecha_recepcion}" id="fecha_recepcion" class="form-control element-focusable" autocomplete="off"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span><br>Último nº recibido:</span>
+                                    <div class="input-group">
+                                        <input type="text" name="num_ultimo_recibido" value="{$fsc->articulo->num_ultimo_recibido}" id="num_ultimo_recibido" class="form-control element-focusable" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span><br>Uds. última recepción:</span>
+                                    <div class="input-group">
+                                        <input type="text" name="uds_recibidas_ult_reparto" value="{$fsc->articulo->uds_recibidas_ult_reparto}" id="uds_recibidas_ult_reparto" class="form-control element-focusable" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span>Stock vendido al momento últ. recep.:</span>
+                                    <input type="text" name="stock_vendido_ult_recepcion" value="{$fsc->articulo->stock_vendido_ult_recepcion}" id="stock_vendido_ult_recepcion" class="form-control element-focusable" autocomplete="off"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span>Nº anterior recibido:</span>
+                                    <div class="input-group">
+                                        <input type="text" name="num_anterior" value="{$fsc->articulo->num_anterior}" id="num_anterior" class="form-control element-focusable"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span>Uds. nº anterior:</span>
+                                    <div class="input-group">
+                                        <input type="text" name="tpv_efectivo" value="{$fsc->articulo->uds_num_anterior}" id="uds_num_anterior" class="form-control element-focusable" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span>Nº anterior 2 recibido:</span>
+                                    <div class="input-group">
+                                        <input type="text" name="num_anterior_del_anterior" value="{$fsc->articulo->num_anterior_del_anterior}" id="num_anterior_del_anterior" class="form-control element-focusable"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span>Uds. nº anterior 2:</span>
+                                    <div class="input-group">
+                                        <input type="text" name="uds_num_anterior_del_anterior" value="{$fsc->articulo->uds_num_anterior_del_anterior}" id="uds_num_anterior_del_anterior" class="form-control element-focusable" autocomplete="off"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <div class="input-group element-focusable" style="display: flex;">
+                                    <input type="checkbox" name="devuelto_descatalogado" value="devuelto_descatalogado" id="devuelto_descatalogado" {if="$fsc->articulo->devuelto_descatalogado == 1"}checked="checked"{/if} class="element-focusable"/>
+                                    <label for="devuelto_descatalogado">Devuelto/descatalog.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3"><div class="form-group">
+                                <label>&nbsp;</label>
+                                <div class="input-group element-focusable" style="display: flex;">
+                                    <input type="checkbox" name="bloqueado" value="bloqueado" id="bloqueado" {if="$fsc->articulo->bloqueado == 1"}checked="checked"{/if} class="element-focusable"/>
+                                    <label for="bloqueado">Bloqueado/obsoleto.</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-sm-4 text-left">
+                    <a href="#" class="btn btn-sm btn-danger" id="btn-cancel-modal-product" data-dismiss="modal" aria-label="Close">
+                        <span class="glyphicon glyphicon-remove"></span>&nbsp; Cancelar
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-sm btn-info btn-gestion-stock" id="btn-gestion-stock" type="button" data-referencia="{$fsc->referencia}">
+                        <span class="glyphicon glyphicon-list"></span>&nbsp; Gestión Stock
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-sm btn-primary btn-mod-save" id="btn-save-modal-product" type="button" data-dismiss="modal" onclick="modificar_articulo('{$fsc->referencia}');">
+                        <span class="glyphicon glyphicon-ok "></span>&nbsp; Modificar
+                    </button>
+                </div>
+            </div>
+        </div>
+      </section>
+        
+        
+      <section class="articulo_sidebar">
+       <input id="ref_buscada" type="hidden" name="ref_buscada" value="{$fsc->ref_busc}" />
+        
+       <div id='b_articulos_buscador' class='table-responsive grid-search-result-catalog' style='border: 1px solid #ddd;position: absolute;z-index: 100;border-top: none;background: white; height: 550px;margin-top: 30px;'>
+              <table class='table table-hover' style='margin-bottom: 0;'>
+                  <thead>
+                    <tr >
+                    <th class='text-left'>Referencia</th>
+                    <th class='text-left'>Artículo</th>
+                    <th class='text-left'>Precio</th></tr>
+                   </thead>
+                   
+                    {loop="$fsc->listaArticulo"}                          
+                               <!--<tr class='clickable-row' data-href='url://'>-->
+                               <tr class='clickable-row'>
+                                   <td class='valor_ref text-left'>{$value->referencia}</td>
+                                   <td class='text-left'>{$value->descripcion}</td>
+                                   <td class='text-left'>{$value->pvp}</td>                                 
+                                  
+                               </tr>
+                    {/loop}
+                        
+                        
+              </table>
+          </div>
+       
+       <!--<ul>
+            <li></li>
+            
+        </ul>
+        <ul>
+            <li></li>           
+        </ul>-->
+        
+        </section>
+        
+      
+    </div>
+</div>
+
+<div id="myModal" class="modal hide fade in">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Header</h3>
+    </div>
+    <div class="modal-body"></div>
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-success" value="Save"/>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+        var ref_busc = $("#ref_buscada").val();
+        if(ref_busc === "undefined"){            
+             jQuery("#codbarras").focus();             
+        }else{
+            jQuery("#descripcion").focus();  
+        }              
+    });
+</script>

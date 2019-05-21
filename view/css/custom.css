@@ -1,0 +1,276 @@
+/*!
+ * This file is part of FacturaScripts
+ * Copyright (C) 2013-2017  Carlos Garcia Gomez  neorazorx@gmail.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+ul.dropdown-menu li a:first-letter {
+   text-transform: uppercase;
+}
+
+.well {
+   margin: 5px;
+}
+
+.alert {
+   margin: 5px;
+}
+
+.alert a {
+   color: white;
+   text-decoration: underline;
+}
+
+.modal-header .close {
+   color: #222222;
+}
+
+.modal-footer {
+   margin: 0px;
+}
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #D9EDF7; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+
+.clickable, .clickableRow:hover {
+   cursor: pointer;
+}
+
+.modal-dialog {
+   z-index: 1050;
+}
+
+iframe {
+   border: 0px;
+}
+
+.vertical-align-bottom {
+    float:none;
+    vertical-align: bottom !important;
+}
+
+.vertical-align-top {
+    float:none;
+    vertical-align: top !important;
+}
+
+.vertical-align-middle {
+    float:none;
+    vertical-align: middle !important;
+}
+
+.element-focusable:focus {
+    border: 3px solid red !important;
+}
+.input-group.element-focus {
+    border: 3px solid red !important;
+    margin: -3px;
+}
+
+.element-focusable.focus-active {
+    border: 3px solid red !important;
+}
+
+tr.element-focusable.focus-active {
+    border-top: 3px solid red !important;
+    border-bottom: 3px solid red !important;
+    border-left: 2px solid red !important;
+    border-right: 2px solid red !important;
+}
+
+tr.element-focusable.focus-active.barcode_item, tr.element-focusable.focus-active.prod_marcaje_item, tr.element-focusable.focus-active.b_articulos_item {
+    border-top: 3px solid red !important;
+    border-bottom: 3px solid red !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.section-active {
+    border: 1px solid red !important;
+    border-radius: 8px;
+    padding-bottom: 10px;
+}
+
+.badge-key {
+    position: absolute;
+    top: 0 !important;
+    right: 0 !important;
+    font-size: 11px;
+}
+
+button .badge-key {
+    position: relative !important;
+    margin-left: 5px !important;
+}
+
+#b_codbar:focus {
+    border-color: red !important;
+    border-width: 3px !important;
+}
+
+#btn-keymap-save-ticket, #btn-keymap-aparcar-ticket {
+    color: #fff;
+    font-weight: bold;
+}
+
+#btn-keymap-save-ticket:hover, #btn-keymap-aparcar-ticket:hover {
+    color: rgb(119, 119, 119);
+}
+
+#btn-cajon-cierre {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+}
+
+#btn-keymap-abrir-solo-caja {
+    background-color: #aeaeae;
+    border-color: #949494;
+}
+
+#btn-keymap-abrir-solo-caja:hover {
+    background-color: #949494;
+}
+
+#btn-keymap-abrir-solo-caja .badge {
+    color: #aeaeae;
+}
+
+.nav-tabs>li>a {
+    padding-top: 15px;
+}
+
+.product-box {
+    height: 85px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-box small {
+    padding-top: 10px;
+    font-size: 100%;
+    overflow: hidden;
+    height: 70px;
+}
+
+.product-box .precio-badge {
+    width: 50px;
+    align-self: flex-end;
+    position: absolute;
+    right: 10px;
+    bottom: 14px;
+}
+
+.product-box .ref-badge {
+    background-color: #3c8dbc;
+    min-width: 50px;
+    align-self: flex-start;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    font-size: 11px;
+}
+
+.input-group-100 {
+    width: 100% !important;
+}
+
+.tpv_tactil2 {
+    font-weight: 600;
+}
+
+.tpv_tactil2 .navbar-default .navbar-brand,.tpv_tactil2 .navbar-default .navbar-nav>li>a {
+    color: #585858;
+}
+
+.tpv_tactil2 .form-control {
+    color: #3e3e3e;
+}
+.tpv_tactil2 a:not(.btn) {
+    color: #2884bc;
+}
+.tpv_tactil2 .btn {
+    font-weight: 600;
+}
+
+#btn-keymap-save-ticket span.keymap-child {
+    left: 0 !important;
+    right: auto !important
+}
+
+#btn-keymap-save-ticket span.keymap-child:last-child {
+    left: auto !important;
+    right: 0 !important;
+}
+
+.padding-0 {
+    padding-left: 0;
+    padding-right: 0;
+}
+.padding-sm {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.padding-md {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.grid-catalog .row > div > a {
+    display: flex;
+    font-size: 100%;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+
+.btn-add-articulo-marcaje {
+    padding-top: 20px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.btn-add-articulo-marcaje small {
+    font-size: 100%;
+    height: 60px;
+    overflow: hidden;
+}
+.counter-articulo-marcaje {
+    position: absolute;
+    font-size: 120%;
+    font-weight: bolder;
+    right: 10px;
+}
+
+.modal-dialog.modal-dialog-with-sidebar {
+    max-width: 1000px !important;
+}
+.modal-dialog.modal-dialog-with-sidebar .articulo_body {
+    width: 68%;
+    display: inline-block
+}
+.modal-dialog .articulo_sidebar {
+    display: none;
+}
+.modal-dialog.modal-dialog-with-sidebar .articulo_sidebar {
+    display: block;
+    width: 30%;
+    float:right
+}

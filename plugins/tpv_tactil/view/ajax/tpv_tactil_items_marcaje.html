@@ -1,0 +1,132 @@
+<div class="row-marcaje grid-marcaje" {if="$fsc->resultado['display_config']"}style="display:none"{else}style="display:block"{/if}>
+<div class="row" id="b_derecha" style="margin-bottom: 20px">
+   <div class="col-md-12 padding-sm">
+      <!--<a href="#" id="b_buscar_art_additional_marca" class="btn btn-sm btn-info">
+         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </a>-->
+      <input type="text" name="anadir_productos" id="anadir_prod_marcaje" class="form-control element-focusable" autocomplete="off" placeholder="Buscar otros artículos">
+   </div>
+</div>
+   {if="count($fsc->articulos_favoritos()) > 0"}
+   <div class="row element-focusable-parent">
+   {loop="$fsc->articulos_favoritos()"}
+      {if="$key > 0 && $key % 2 == 0"}
+         </div>
+         <div class="row element-focusable-parent">
+      {/if}
+   <div class="col-md-6 col-sm-6 padding-sm">
+      <button type="button" class="btn btn-xs btn-warning btn-subtract-articulo-marcaje" data-referencia="{$value->referencia}" style="position: absolute;">
+         <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+      </button>
+      <div  class="counter-articulo-marcaje">
+         <strong>{$value->cantidad}</strong>
+      </div>
+      <a href="#" class="thumbnail btn-add-articulo-marcaje element-focusable element-keep-focus-click" data-referencia="{$value->referencia}">
+         <small style="margin-top:10px;">{$value->descripcion(60)}</small>
+         <span class="badge" style="align-self: flex-end;width: 50px;position: absolute;bottom: 14px;right: 10px;">{$fsc->show_precio($value->pvp_iva())}</span>
+      </a>
+   </div>
+   {/loop}
+   </div>
+   {else}
+   <div class="col-sm-12"><p>No tiene productos favoritos añadidos</p></div>
+   {/if}
+   {if="count($fsc->articulos_marcaje_no_favoritos()) > 0"}
+   <div class="row">
+      <div class="col-md-12">
+         <h4>Artículos no favoritos</h4>
+         <div class="row element-focusable-parent">
+            {loop="$fsc->articulos_marcaje_no_favoritos()"}
+            {if="$key > 0 && $key % 2 == 0"}
+         </div>
+         <div class="row element-focusable-parent">
+            {/if}
+            <div class="col-md-6 col-sm-6">
+               <button type="button" class="btn btn-xs btn-warning btn-subtract-articulo-marcaje" data-referencia="{$value->referencia}" style="position: absolute;">
+                  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+               </button>
+               <div class="" style="position: absolute; right: 20px;">
+                  <strong>{$value->cantidad}</strong>
+               </div>
+               <a href="#" class="thumbnail btn-add-articulo-marcaje element-focusable element-keep-focus-click" data-referencia="{$value->referencia}" style="padding-top: 20px;height: 120px;display: flex;flex-direction: column;justify-content: space-between;">
+                  <small style="margin-top: 10px;">{$value->descripcion(60)}</small>
+                  <span class="badge" style="align-self: flex-end; width: 50px;position: absolute;bottom: 14px;right: 10px;">{$fsc->show_precio($value->pvp_iva())}</span>
+               </a>
+            </div>
+            {/loop}
+         </div>
+      </div>
+   </div>
+   {/if}
+</div>
+<div class="row-config-marcaje" {if="$fsc->resultado['display_config']"}style="display:block"{else}style="display:none"{/if}>
+   <div class="row">
+   {loop="$fsc->articulos_favoritos_config()"}
+      {if="$key > 0 && $key % 2 == 0"}
+      </div>
+      <div class="row">
+   {/if}
+   <div id="product_space_{$value->posicion}" class="col-md-6 col-sm-6 padding-sm">
+      {if="isset($value->referencia) && !empty($value->referencia)"}
+      <div id="product_data_{$value->posicion}">
+      <button type="button" class="btn btn-xs btn-danger btn-remove-articulo-marcaje" data-referencia="{$value->referencia}" style="position: absolute; right: 15px;">
+         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </button>
+      <div class="thumbnail" style="padding-top: 20px;">
+         <div style="height: 70px;display: flex;flex-direction: column;margin-top: 3px;justify-content: space-between;">
+            <small style="height: 48px;overflow: hidden;">{$value->descripcion(60)}</small>
+            <span class="badge" style="align-self: flex-end;width: 50px;position: absolute;bottom: 5px;right: 10px;">{$fsc->show_precio($value->pvp_iva())}</span>
+         </div>
+         {if="$value->posicion==1"}
+         <div style="display: flex;justify-content: flex-end;align-items: flex-end;height: 20px;margin-top: 15px;">
+            <button type="button" class="btn btn-xs btn-warning btn-mover-derecha" data-referencia="{$value->referencia}" data-posicion="{$value->posicion}" style="right: 15px;">
+               <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </button>
+         </div>
+         {else}
+         <div style="display: flex;justify-content: space-between;align-items: flex-end;height: 20px;margin-top: 15px;">
+            {if="$value->posicion!=1"}
+            <button type="button" class="btn btn-xs btn-warning btn-mover-izquierda" data-referencia="{$value->referencia}" data-posicion="{$value->posicion}" style="right: 15px;">
+               <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            </button>
+            {/if}
+            {if="$value->posicion!=15"}
+            <button type="button" class="btn btn-xs btn-warning btn-mover-derecha" data-referencia="{$value->referencia}" data-posicion="{$value->posicion}" style="right: 15px;">
+               <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </button>
+            {/if}
+         </div>
+         {/if}
+      </div>
+      </div>
+      {else}
+      <div id="product_data_{$value->posicion}" class="thumbnail" style="height: 134px;display: flex;flex-direction: column;justify-content: space-between;">
+      <a href="#" class="thumbnail btn-select-articulo-marcaje" data-posicion="{$value->posicion}" data-referencia="{$value->referencia}" style="margin-bottom: 13px;margin-top: 13px;border:none;">
+         <img src="{#FS_PATH#}plugins/tpv_tactil/view/img/empty_product.png" style="height: 41px;" alt="Sin producto Añadido"/>
+      </a>
+          <div style="display: flex;justify-content: space-between;align-items: flex-end;height: 20px;margin-top: 15px;">
+              {if="$value->posicion==1"}
+              <div style="display: flex;justify-content: flex-end;align-items: flex-end;height: 20px;margin-top: 15px; width: 100%;">
+                  <button type="button" class="btn btn-xs btn-warning btn-mover-derecha" data-referencia="{$value->referencia}" data-posicion="{$value->posicion}" style="right: 15px;">
+                      <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                  </button>
+              </div>
+              {else}
+              {if="$value->posicion!=1"}
+              <button type="button" class="btn btn-xs btn-warning btn-mover-izquierda" data-referencia="{$value->referencia}" data-posicion="{$value->posicion}" style="right: 15px;">
+                  <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+              </button>
+              {/if}
+              {if="$value->posicion!=15"}
+              <button type="button" class="btn btn-xs btn-warning btn-mover-derecha" data-referencia="{$value->referencia}" data-posicion="{$value->posicion}" style="right: 15px;">
+                  <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+              </button>
+              {/if}
+              {/if}
+          </div>
+      </div>
+      {/if}
+   </div>
+   {/loop}
+   </div>
+</div>

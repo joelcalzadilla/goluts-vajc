@@ -1,0 +1,82 @@
+<ul id="tabs_catalogo" class="nav nav-tabs " role="tablist">
+   <li role="presentation" class="active">
+      <a href="#familias" id="btn-keymap-familias" aria-controls="familias" role="tab" data-toggle="tab">
+         <span class="glyphicon glyphicon-folder-open"></span>
+         <span class="hidden-xs">&nbsp; Familias</span>
+      </a>
+   </li>
+   {loop="$fsc->aux_articulos_tabs()"}
+   <li role="presentation">
+      <a href="#articulos{$value}" aria-controls="articulos{$value}" role="tab" data-toggle="tab">
+         {if="$value<=1"}
+         <span class="glyphicon glyphicon-th-large"></span>
+         <span class="hidden-xs">&nbsp; {$value}</span>
+         {else}
+         {$value}
+         {/if}
+      </a>
+   </li>
+   {/loop}
+</ul>
+<br/>
+<div class="tab-content">
+   <div role="tabpanel" class="tab-pane active" id="familias">
+      <div class="container-fluid grid-catalog">
+         <div class="row" style="margin-bottom:20px;">
+            <div class="col-md-12 col-sm-12 padding-sm">
+               <input type="text" name="b_articulos" id="b_articulos" class="form-control element-focusable" autocomplete="off" placeholder="Buscar artículos">
+            </div>
+         </div>
+         <div class="row element-focusable-parent">
+            {loop="$fsc->familias()"}
+            {if="$key > 0 && $key % 2 == 0"}
+               </div>
+               <div class="row element-focusable-parent">
+            {/if}
+            <div class="col-lg-6 col-md-6 col-sm-6 padding-sm">
+               {if="$value->imagen_url()"}
+               <a href="#" class="thumbnail element-focusable"
+                  onclick="return get_articulos('{$value->codfamilia}')" style="font-size: 85%;height: 131px;display: flex;flex-direction: column;justify-content: space-between;">
+                  <span class="badge" style="background-color: #3c8dbc;width: 50px;align-self: flex-start;position: absolute;top: -5px;right: 5px;font-size: 11px;">{$value->codfamilia}</span>
+                  <img src="{$value->imagen_url()}" alt="{$value->codfamilia}" style="margin-top: 10px; width: 100%;"/>
+                  {$value->descripcion(12)}
+               </a>
+               {else}
+               <a href="#" id="familia_{$value->codfamilia}" class="thumbnail element-focusable"
+                  onclick="return get_articulos('{$value->codfamilia}')" style="font-size: 85%;min-height: 60px; display: flex; flex-direction: column; justify-content: flex-end;">
+                  <span class="badge" style="background-color: #3c8dbc;width: 50px;align-self: flex-start;position: absolute;top: -5px;right: 5px;font-size: 11px;">{$value->codfamilia}</span>
+                  {$value->descripcion(12)}
+               </a>
+               {/if}
+               <br/>
+            </div>
+            {/loop}
+         </div>
+      </div>
+   </div>
+   {loop="$fsc->aux_articulos_grid()"}
+   <div role="tabpanel" class="tab-pane" id="articulos{$key}">
+      <div class="container-fluid grid-articulos">
+         <div class="row element-focusable-parent">
+         {loop="$value"}
+            {if="$key > 0 && $counter%2==0"}
+            </div>
+            <div class="row element-focusable-parent">
+            {/if}
+            <div class="col-sm-6 padding-sm">
+               <a href="#" class="thumbnail element-focusable product-box" onclick="{$value->funcion_js}">
+                  <span class="badge ref-badge">{$value->referencia}</span>
+                  <small>{$value->descripcion(60)}</small>
+                  <span class="badge precio-badge">{$fsc->show_precio($value->pvp_iva())}</span>
+               </a>
+            </div>
+         {else}
+         <div class="col-sm-12">
+            <div class="alert alert-warning">Sin resultados.</div>
+         </div>
+         {/loop}
+         </div>
+      </div>
+   </div>
+   {/loop}
+</div>

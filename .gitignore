@@ -1,0 +1,15 @@
+# IntelliJ IDEA based IDE's specific stuff
+.idea/
+.idea_modules/
+*.iws
+*.iml
+out/
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+tmp/**
+!tmp/index.php
+vendor/
+nbproject/

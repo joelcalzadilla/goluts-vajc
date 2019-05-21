@@ -1,0 +1,182 @@
+<!--
+Copyright (C) 2015 Joe Nilson <joenilson@gmail.com>
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+{include="header"}
+<div class="container-fluid">
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-xs-1 col-sm-1">
+            <div class="btn-group">
+                <a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la página">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-11 col-xs-11 text-left">
+            <h3 style="margin-top: 0px;">
+                Configuración de Datos Maestros de Distribución
+            </h3>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-2 col-sm-3">
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#general" aria-controls="general" role="tab" data-toggle="tab">
+                        <span class="fa fa-info"></span> &nbsp; Información
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#supervisores" aria-controls="supervisores" role="tab" data-toggle="tab">
+                        <span class="fa fa-eye"></span> &nbsp; Supervisores
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#vendedores" aria-controls="vendedores" role="tab" data-toggle="tab">
+                        <span class="fa fa-user"></span> &nbsp; Vendedores
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#rutas" aria-controls="rutas" role="tab" data-toggle="tab">
+                        <span class="fa fa-road"></span> &nbsp; Rutas
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#canales" aria-controls="canales" role="tab" data-toggle="tab">
+                        <span class="fa fa-reorder"></span> &nbsp; Canales
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#subcanales" aria-controls="subcanales" role="tab" data-toggle="tab">
+                        <span class="fa fa-list"></span> &nbsp; Subcanales
+                    </a>
+                </li>
+                {loop="$fsc->extensions"}
+                    {if="$value->type=='button'"}
+                        <li>
+                            <a id="b_{$value->from}" href="index.php?page={$value->from}{$value->params}&codagente={$fsc->agente->codagente}">
+                                {$value->text}
+                            </a>
+                        </li>
+                    {elseif="$value->type=='tab'"}
+                        <li role="presentation">
+                            <a href="#ext_{$key}" aria-controls="ext_{$key}" role="tab" data-toggle="tab">
+                                {$value->text}
+                            </a>
+                        </li>
+                    {/if}
+                {/loop}
+            </ul>
+        </div>
+        <div class="col-md-10 col-sm-9">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="general">
+                    <div class="panel panel-info" id="panel_central">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Datos maestros de distribución para los clientes</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p align="justify">Para el correcto uso del módulo de distribución para los clientes se debe crear como mínimo un Supervisor, un vendedor, una ruta, un canal y un subcanal, para ser asignado al cliente.</p>
+                            <p align="justify">Si adicional a esto se quiere utilizar el plugin de geolocalización de clientes, se debe agregar en la data maestra de los clientes las coordenadas de los mismos.</p>
+                            <p align="justify">A continuación seleccione una opción del menú de la izquierda para agregar la información básica.</p>
+                            <div class="alert alert-warning">Es necesario que configure como mínimo un empleado con cargo <b>Supervisor</b> y uno con cargo <b>Vendedor</b></div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="supervisores">
+                    <iframe src="index.php?page=distrib_supervisores" width="100%" height="800" frameborder="0"></iframe>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="vendedores">
+                    <iframe src="index.php?page=distrib_vendedores" width="100%" height="800" frameborder="0"></iframe>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="rutas">
+                    <iframe src="index.php?page=distrib_rutas" width="100%" height="800" frameborder="0"></iframe>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="canales">
+                    <iframe src="index.php?page=distrib_segmentos&segmento=canales" width="100%" height="800" frameborder="0"></iframe>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="subcanales">
+                    <iframe src="index.php?page=distrib_segmentos&segmento=subcanales" width="100%" height="800" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" name='menu_activo' id='menu_activo' value="{$fsc->type}">
+<script type="text/javascript">
+    /*
+     * Cambia la clase a boton primario cuando el usuario le da Click y muestra el panel asociado
+     */
+    function botonActivo(element) {
+        var botones = ['b_supervisores', 'b_vendedores', 'b_rutas', 'b_canales', 'b_subcanales'];
+        var paneles = ['panel_supervisores', 'panel_vendedores', 'panel_rutas', 'panel_canales', 'panel_subcanales'];
+        $('#panel_central').hide();
+        for (var i = 0; i < botones.length; i++) {
+            var idElement = '#' + element.id;
+            var otherElement = '#' + botones[i];
+            var idPanel = '#' + paneles[i];
+            if (element.id === botones[i]) {
+                $(idElement).removeClass("btn-default");
+                $(idElement).addClass("btn-primary");
+                $(idPanel).removeClass('hidden');
+            } else {
+                $(otherElement).removeClass("btn-primary");
+                $(otherElement).addClass("btn-default");
+                $(idPanel).addClass('hidden');
+            }
+        }
+    }
+    
+    function borrar(objeto, codigo, almacen,campo){
+        bootbox.dialog({
+            message: "Esta seguro que quiere eliminar al "+objeto+"?",
+            title: "Eliminar "+objeto,
+            buttons: {
+                success: {
+                    label: "Eliminar",
+                    className: "btn-success",
+                    callback: function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{$fsc->url()}',
+                            async: false,
+                            data: 'type='+objeto+'&'+campo+'='+codigo+'&codalmacen='+almacen+'&borrar=TRUE',
+                            success : function(datos) {
+                                 bootbox.alert(datos.mensaje, function() {
+                                    window.location.assign("{$fsc->url()}");
+                                 });
+                            },
+                            error: function() {
+                                bootbox.alert("Ocurrio un error no contemplado en el plugin, por favor envie un mensaje en el foro de soporte de FacturaScripts para verificar el problema, gracias.");
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Cancelar",
+                    className: "btn-danger",
+                    callback: function() {
+                        this.hide();
+                    }
+                }
+            }
+        });
+    }
+
+</script>
+{include="footer"}
